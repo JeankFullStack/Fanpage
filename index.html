@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  ELLOS PARA ELLAS — JOAS
+  Fanpage / Invitación interactiva
+  Archivo:  index.html
+  Estilos:  styles.css
+  Scripts:  app.js
+  ============================================================ -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- RESPONSIVE: viewport para adaptarse a móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- TÍTULO de la página -->
+  <title>Ellos para ellas ✿ JOAS</title>
+
+  <!-- FUENTES: Google Fonts (Great Vibes, Playfair Display, Poppins, Quicksand) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ESTILOS: hoja externa -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==========================================================
+    FONDO ANIMADO
+    Flores flotando decorativas (generadas con JS)
+    ========================================================== -->
+  <div class="floating-bg" id="floatingBg"></div>
+
+
+  <!-- ==========================================================
+    NAVBAR — Barra de navegación fija
+    ========================================================== -->
+  <nav id="navbar">
+
+    <!-- LOGO: nombre del evento + badge JOAS -->
+    <a href="#" class="nav-logo">
+      Ellos para ellas
+      <span class="logo-badge">JOAS</span>
+    </a>
+
+    <!-- Botón hamburguesa (visible solo en móvil) -->
+    <button class="nav-toggle" id="navToggle">☰</button>
+
+    <!-- Enlaces de navegación -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#virtudes">Virtudes</a></li>
+      <li><a href="#flores">Flores</a></li>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="#invitacion">Invitación</a></li>
+      <li><a href="#countdown">Cuenta regresiva</a></li>
+      <li><a href="#confirmar">Confirmar</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ==========================================================
+    HERO — Sección principal de bienvenida
+    ========================================================== -->
+  <section class="hero">
+
+    <!-- Rosas decorativas animadas -->
+    <div class="hero-roses">
+      <span>🌹</span>
+      <span>🌷</span>
+      <span>🌸</span>
+      <span>🌺</span>
+      <span>🌹</span>
+    </div>
+
+    <!-- Logo grande JOAS -->
+    <div class="hero-logo-large">JOAS</div>
+
+    <!-- Título principal -->
+    <h1 class="hero-title">
+      Ellos para ellas
+      <span>"Una velada diseñada para celebrar tu esencia"</span>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="hero-sub">
+      Un evento creado por Ellos para celebrar a Ellas —
+      porque cada mujer merece ser honrada.
+    </p>
+
+    <!-- Botones de acción -->
+    <div class="hero-actions">
+      <a href="#virtudes" class="btn btn-primary">✨ Descubrir más</a>
+      <a href="#invitacion" class="btn btn-secondary">💌 Ver invitación</a>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+    VIRTUDES — Cards interactivas
+    Cada card se expande al hacer clic (ver app.js)
+    ========================================================== -->
+  <section id="virtudes">
+    <div class="container">
+
+      <!-- Título de sección -->
+      <h2 class="section-title reveal">Lo que hace especial a una mujer</h2>
+      <p class="section-sub reveal">Toca cada cualidad para descubrir su significado profundo.</p>
+      <div class="section-divider reveal">✿ ✿ ✿</div>
+
+      <!-- Grid de virtudes -->
+      <div class="virtues-grid">
+
+        <!-- Virtud: Dignidad -->
+        <div class="virtue-card" data-virtue="dignidad">
+          <span class="virtue-badge">✦ Descubierto</span>
+          <div class="virtue-icon">👑</div>
+          <h3>Dignidad</h3>
+          <div class="virtue-desc">Tu valor no está en lo que haces, sino en quien eres.</div>
+          <div class="virtue-verse">"Fuerza y dignidad son su vestidura" — Proverbios 31:25</div>
+          <div class="virtue-desc-hidden">
+            Caminas con la cabeza en alto porque sabes que eres una joya preciosa.
+            Nadie puede opacar tu luz porque tu identidad está firme como una torre.
+          </div>
+          <span class="virtue-expand">▼</span>
+          <div class="virtue-flower">🌹</div>
+        </div>
+
+        <!-- Virtud: Sabiduría -->
+        <div class="virtue-card" data-virtue="sabiduria">
+          <span class="virtue-badge">✦ Descubierto</span>
+          <div class="virtue-icon">🕊️</div>
+          <h3>Sabiduría</h3>
+          <div class="virtue-desc">Tus palabras son medicina para el alma.</div>
+          <div class="virtue-verse">"Abre su boca con sabiduría, y la ley de clemencia está en su lengua" — Proverbios 31:26</div>
+          <div class="virtue-desc-hidden">
+            Sabes cuándo hablar y cuándo escuchar. Tu consejo es refugio de paz
+            y tus decisiones están llenas de entendimiento y gracia.
+          </div>
+          <span class="virtue-expand">▼</span>
+          <div class="virtue-flower">🌿</div>
+        </div>
+
+        <!-- Virtud: Fortaleza -->
+        <div class="virtue-card" data-virtue="fortaleza">
+          <span class="virtue-badge">✦ Descubierto</span>
+          <div class="virtue-icon">💪</div>
+          <h3>Fortaleza</h3>
+          <div class="virtue-desc">Como el roble frente a la tormenta, te mantienes firme.</div>
+          <div class="virtue-verse">"Los que esperan en Jehová renovarán sus fuerzas; levantarán alas como las águilas" — Isaías 40:31</div>
+          <div class="virtue-desc-hidden">
+            Tus pruebas te han esculpido y hoy eres más fuerte que ayer.
+            Nada te doblega porque tu espíritu es indomable.
+          </div>
+          <span class="virtue-expand">▼</span>
+          <div class="virtue-flower">🌻</div>
+        </div>
+
+        <!-- Virtud: Bondad -->
+        <div class="virtue-card" data-virtue="bondad">
+          <span class="virtue-badge">✦ Descubierto</span>
+          <div class="virtue-icon">🤍</div>
+          <h3>Bondad</h3>
+          <div class="virtue-desc">Tu corazón generoso abraza sin condición.</div>
+          <div class="virtue-verse">"Extiende su mano al pobre, y al necesitado tiende sus brazos" — Proverbios 31:20</div>
+          <div class="virtue-desc-hidden">
+            En tus manos, el amor se convierte en acción y la fe en esperanza.
+            Dejas una huella de luz allá por donde pasas.
+          </div>
+          <span class="virtue-expand">▼</span>
+          <div class="virtue-flower">🌸</div>
+        </div>
+
+        <!-- Virtud: Gracia -->
+        <div class="virtue-card" data-virtue="gracia">
+          <span class="virtue-badge">✦ Descubierto</span>
+          <div class="virtue-icon">🦋</div>
+          <h3>Gracia</h3>
+          <div class="virtue-desc">Tu presencia es como una danza de mariposas.</div>
+          <div class="virtue-verse">"Eres la más hermosa de todas; la gracia se derramó en tus labios" — Salmos 45:2</div>
+          <div class="virtue-desc-hidden">
+            Ligera, elegante, transformando todo a tu alrededor con belleza.
+            Tu porte y delicadeza enamoran sin esfuerzo.
+          </div>
+          <span class="virtue-expand">▼</span>
+          <div class="virtue-flower">🌷</div>
+        </div>
+
+        <!-- Virtud: Valentía -->
+        <div class="virtue-card" data-virtue="valentia">
+          <span class="virtue-badge">✦ Descubierto</span>
+          <div class="virtue-icon">🔥</div>
+          <h3>Valentía</h3>
+          <div class="virtue-desc">No temes soñar en grande ni comenzar de nuevo.</div>
+          <div class="virtue-verse">"Esfuérzate y sé valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo" — Josué 1:9</div>
+          <div class="virtue-desc-hidden">
+            Tu coraje inspira a quienes tienen la dicha de caminar a tu lado.
+            Eres fuego que enciende esperanza en los demás.
+          </div>
+          <span class="virtue-expand">▼</span>
+          <div class="virtue-flower">🌺</div>
+        </div>
+
+      </div><!-- /virtues-grid -->
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ==========================================================
+    FLORES — Galería interactiva
+    Al hacer clic en una flor se muestra su significado
+    ========================================================== -->
+  <section id="flores" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,0.2));">
+    <div class="container">
+
+      <h2 class="section-title reveal">Flores para ti</h2>
+      <p class="section-sub reveal">Toca una flor y descubre el mensaje que guarda para ti.</p>
+      <div class="section-divider reveal">✿ ✿ ✿</div>
+
+      <!-- Grid de flores -->
+      <div class="flower-showcase reveal">
+
+        <!-- Rosa -->
+        <div class="flower-item" data-flower="rosa">
+          <div class="flower-circle">🌹</div>
+          <div class="fname">Rosa</div>
+          <div class="flower-meaning">
+            «<strong>Amor y belleza eterna</strong> — como el amor que mereces recibir»
+          </div>
+        </div>
+
+        <!-- Tulipán -->
+        <div class="flower-item" data-flower="tulipan">
+          <div class="flower-circle">🌷</div>
+          <div class="fname">Tulipán</div>
+          <div class="flower-meaning">
+            «<strong>Gracia y elegancia</strong> — tu porte cautiva sin palabras»
+          </div>
+        </div>
+
+        <!-- Cerezo -->
+        <div class="flower-item" data-flower="cerezo">
+          <div class="flower-circle">🌸</div>
+          <div class="fname">Cerezo</div>
+          <div class="flower-meaning">
+            «<strong>Renovación y esperanza</strong> — cada día floreces de nuevo»
+          </div>
+        </div>
+
+        <!-- Girasol -->
+        <div class="flower-item" data-flower="girasol">
+          <div class="flower-circle">🌻</div>
+          <div class="fname">Girasol</div>
+          <div class="flower-meaning">
+            «<strong>Fortaleza y lealtad</strong> — siempre en busca de la luz»
+          </div>
+        </div>
+
+        <!-- Hibisco -->
+        <div class="flower-item" data-flower="hibisco">
+          <div class="flower-circle">🌺</div>
+          <div class="fname">Hibisco</div>
+          <div class="flower-meaning">
+            «<strong>Belleza delicada</strong> — tu ternura es tu mayor poder»
+          </div>
+        </div>
+
+      </div><!-- /flower-showcase -->
+
+      <!-- Panel de énfasis: se muestra al seleccionar una flor -->
+      <div class="flower-emphasis" id="flowerEmphasis">
+        <span class="emojibig" id="feEmoji"></span>
+        <span class="textbig" id="feTitle"></span>
+        <span class="textsub" id="feSub"></span>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ==========================================================
+    CARTA — Sección con carta poética
+    ========================================================== -->
+  <section id="carta" class="letter-section">
+    <div class="container">
+
+      <h2 class="section-title reveal">Una carta para ti</h2>
+      <p class="section-sub reveal">Porque hay palabras que merecen ser escritas con tinta y sentimiento.</p>
+      <div class="section-divider reveal">✿ ✿ ✿</div>
+
+      <!-- Contenido de la carta -->
+      <div class="letter-card reveal">
+        <p>Hay personas que iluminan el mundo sin siquiera intentarlo. Tú eres una de ellas.</p>
+        <p>
+          Mujer, tu valor es muy superior al de los rubíes. En tus ojos brilla la esperanza,
+          en tus manos florece la bondad, y en tu corazón habita una fortaleza que mueve montañas.
+        </p>
+        <p>
+          Que nunca olvides lo extraordinaria que eres. Que cada día reconozcas la realeza
+          que llevas dentro. Porque no eres cualquier mujer: eres una obra maestra, tejida
+          con amor y propósito.
+        </p>
+        <p>Sigue brillando. Sigue floreciendo. El mundo necesita más mujeres como tú.</p>
+
+        <!-- Firma -->
+        <div class="sign">— Ellos para ellas</div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ==========================================================
+    INVITACIÓN — Sobre/Corazón que se abre al hacer clic
+    ========================================================== -->
+  <section id="invitacion">
+    <div class="container">
+
+      <h2 class="section-title reveal">Invitación Especial</h2>
+      <p class="section-sub reveal">Toca el corazón para abrir tu invitación.</p>
+      <div class="section-divider reveal">✿ ✿ ✿</div>
+
+      <!-- Contenedor con perspectiva 3D -->
+      <div class="invite-wrap reveal">
+        <div class="invite-card" id="inviteCard">
+
+          <!-- Partículas que salen al abrir -->
+          <div class="invite-sparkles" id="inviteSparkles"></div>
+
+          <!-- ESTADO CERRADO: Sello de corazón -->
+          <div class="invite-seal" id="inviteSeal">
+            <span class="seal-heart">💌</span>
+            <div class="seal-ribbons">🎀 ─── ✿ ─── 🎀</div>
+            <div class="seal-title">Tienes una invitación</div>
+            <div class="seal-hint">✨ Toca aquí para abrir ✨</div>
+          </div>
+
+          <!-- ESTADO ABIERTO: Contenido de la invitación -->
+          <div class="invite-content" id="inviteContent">
+
+            <div class="big-icon">💖</div>
+            <h2>Estás invitada</h2>
+
+            <p class="invite-text">
+              Una noche mágica con <strong>música</strong>, <strong>postres</strong>,
+              <strong>sorpresas</strong> y momentos que atesorarás.
+              <br><br>
+              <span style="font-family:'Great Vibes',cursive;font-size:1.4rem;color:#c48aa8;">
+                ¿Aceptas esta invitación?
+              </span>
+            </p>
+
+            <!-- Detalles del evento -->
+            <div class="invite-details">
+              <div class="invite-detail">
+                <div class="lbl">Fecha</div>
+                <div class="val">Viernes 01 de Agosto</div>
+              </div>
+              <div class="invite-detail">
+                <div class="lbl">Hora</div>
+                <div class="val">8:00 PM</div>
+              </div>
+              <div class="invite-detail">
+                <div class="lbl">Lugar</div>
+                <div class="val">Sky Lounge</div>
+              </div>
+              <div class="invite-detail">
+                <div class="lbl">Código</div>
+                <div class="val">#EllosParaEllas</div>
+              </div>
+            </div>
+
+            <!-- Botón para ir al CTA -->
+            <a href="#confirmar" class="btn btn-primary" style="margin-top:0.5rem;">
+              ✨ Confirmar asistencia
+            </a>
+
+            <div class="invite-toggle-hint">Toca otra vez para cerrar ✿</div>
+
+          </div><!-- /invite-content -->
+
+        </div><!-- /invite-card -->
+      </div><!-- /invite-wrap -->
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ==========================================================
+    COUNTDOWN — Contador regresivo al evento
+    ========================================================== -->
+  <section id="countdown" class="countdown-section">
+    <div class="container">
+
+      <h2 class="section-title reveal">Falta poco para el gran día</h2>
+      <p class="section-sub reveal">Cada segundo nos acerca a esta noche especial.</p>
+      <div class="section-divider reveal">✿ ✿ ✿</div>
+
+      <!-- Grid del contador -->
+      <div class="countdown-grid reveal" id="countdownGrid">
+        <div class="countdown-item">
+          <span class="countdown-number" id="cdDays">00</span>
+          <span class="countdown-label">Días</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="cdHours">00</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="cdMinutes">00</span>
+          <span class="countdown-label">Minutos</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="cdSeconds">00</span>
+          <span class="countdown-label">Segundos</span>
+        </div>
+      </div>
+
+      <p class="countdown-note reveal">01 de Agosto de 2025 · 8:00 PM · Lima, Perú</p>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ==========================================================
+    CTA FINAL — Llamado a la acción con confetti
+    ========================================================== -->
+  <section id="confirmar" class="cta-section">
+    <div class="cta-box reveal">
+
+      <h2>¿Aceptas la invitación?</h2>
+      <p>Confirma con un "sí" y prepárate para una noche inolvidable</p>
+
+      <!-- Botón principal -->
+      <button class="btn-yes" id="btnYes">💖 ¡Sí, acepto!</button>
+
+      <!-- Mensaje de respuesta (se muestra después del clic) -->
+      <div class="response-msg" id="responseMsg"></div>
+
+    </div><!-- /cta-box -->
+  </section>
+
+
+  <!-- ==========================================================
+    FOOTER — Pie de página
+    ========================================================== -->
+  <footer>
+    JOAS · Ellos para ellas &nbsp;·&nbsp; Hecho con ❤️
+  </footer>
+
+
+  <!-- ==========================================================
+    SCRIPTS — JavaScript externo
+    ========================================================== -->
+  <script src="app.js"></script>
+
+</body>
+</html>
