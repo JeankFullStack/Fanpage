@@ -26,6 +26,24 @@
 <body>
 
   <!-- ==========================================================
+    MODAL DE BIENVENIDA — Popup para ingresar nombre
+    ========================================================== -->
+  <div class="welcome-modal" id="welcomeModal">
+    <div class="welcome-card">
+      <div class="welcome-heart">💌</div>
+      <h2 class="welcome-title">¡Bienvenida!</h2>
+      <p class="welcome-sub">Antes de entrar, dime tu nombre</p>
+      <div class="welcome-input-wrap">
+        <input type="text" class="welcome-input" id="nameInput"
+               placeholder="Escribe tu nombre aquí..." maxlength="30" autofocus />
+        <span class="welcome-input-icon">✿</span>
+      </div>
+      <button class="btn btn-primary welcome-btn" id="nameBtn">Entrar ✨</button>
+      <p class="welcome-hint">Presiona Enter también 💕</p>
+    </div>
+  </div>
+
+  <!-- ==========================================================
     FONDO ANIMADO
     Flores flotando decorativas (generadas con JS)
     ========================================================== -->
@@ -84,7 +102,7 @@
     <!-- Subtítulo -->
     <p class="hero-sub">
       Un evento creado por Ellos para celebrar a Ellas —
-      porque cada mujer merece ser honrada.
+      porque tú, <strong class="name-highlight">{name}</strong>, mereces ser honrada.
     </p>
 
     <!-- Botones de acción -->
@@ -287,16 +305,16 @@
       <p class="section-sub reveal">Porque hay palabras que merecen ser escritas con tinta y sentimiento.</p>
       <div class="section-divider reveal">✿ ✿ ✿</div>
 
-      <!-- Contenido de la carta -->
+      <!-- Contenido de la carta (con {name} como placeholder) -->
       <div class="letter-card reveal">
         <p>Hay personas que iluminan el mundo sin siquiera intentarlo. Tú eres una de ellas.</p>
         <p>
-          Mujer, tu valor es muy superior al de los rubíes. En tus ojos brilla la esperanza,
+          <strong>{name}</strong>, tu valor es muy superior al de los rubíes. En tus ojos brilla la esperanza,
           en tus manos florece la bondad, y en tu corazón habita una fortaleza que mueve montañas.
         </p>
         <p>
           Que nunca olvides lo extraordinaria que eres. Que cada día reconozcas la realeza
-          que llevas dentro. Porque no eres cualquier mujer: eres una obra maestra, tejida
+          que llevas dentro. Porque no eres cualquier mujer, <strong>{name}</strong>: eres una obra maestra, tejida
           con amor y propósito.
         </p>
         <p>Sigue brillando. Sigue floreciendo. El mundo necesita más mujeres como tú.</p>
@@ -353,7 +371,7 @@
             <div class="invite-details">
               <div class="invite-detail">
                 <div class="lbl">Fecha</div>
-                <div class="val">Sábado 01 de Agosto</div>
+                <div class="val">Sábado 01 de Agosto 2026</div>
               </div>
               <div class="invite-detail">
                 <div class="lbl">Hora</div>
@@ -418,7 +436,7 @@
         </div>
       </div>
 
-      <p class="countdown-note reveal">01 de Agosto de 2025 · 8:00 PM · Lima, Perú</p>
+      <p class="countdown-note reveal">Sábado 01 de Agosto de 2026 · 8:00 PM · Lima, Perú</p>
 
     </div><!-- /container -->
   </section>
@@ -441,6 +459,61 @@
 
     </div><!-- /cta-box -->
   </section>
+
+
+  <!-- ==========================================================
+    CHATBOT FLOTANTE — Asistente virtual
+    ========================================================== -->
+
+  <!-- Botón flotante para abrir el chat -->
+  <button class="chatbot-toggle" id="chatbotToggle" aria-label="Abrir chat">
+    <span class="chatbot-toggle-icon">💬</span>
+    <span class="chatbot-toggle-close">✕</span>
+    <span class="chatbot-bubble" id="chatbotBubble">Chatea con nosotros 💬</span>
+  </button>
+
+  <!-- Panel del chatbot -->
+  <div class="chatbot-panel" id="chatbotPanel">
+    <!-- Cabecera -->
+    <div class="chatbot-header">
+      <div class="chatbot-header-avatar">🌸</div>
+      <div class="chatbot-header-info">
+        <span class="chatbot-header-name">Ellas Bot</span>
+        <span class="chatbot-header-status">En línea ✨</span>
+      </div>
+      <button class="chatbot-header-close" id="chatbotClose" aria-label="Cerrar chat">✕</button>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="chatbot-body" id="chatbotBody">
+      <div class="chatbot-msg bot">
+        <div class="msg-avatar">🌸</div>
+        <div class="msg-content">
+          <div class="msg-bubble">
+            ¡Hola! 🌷 Soy el asistente de <strong>Ellos para ellas</strong>, un evento organizado por los varones de <strong>JOAS</strong> (<em>Jóvenes Obedientes, Amables y Serviciales</em>).<br><br>
+            Puedo contarte sobre las <strong>virtudes de la mujer</strong>, las <strong>flores</strong>, la <strong>fecha</strong> del evento y más. ¡Pregúntame lo que quieras! 💕
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preguntas sugeridas (chips) -->
+    <div class="chatbot-suggestions" id="chatbotSuggestions">
+      <button class="chip" data-question="¿Qué es JOAS?">✨ ¿Qué es JOAS?</button>
+      <button class="chip" data-question="¿Cuándo es el evento?">📅 ¿Cuándo es?</button>
+      <button class="chip" data-question="¿Cuáles son las virtudes?">👑 Virtudes</button>
+      <button class="chip" data-question="¿Qué flores hay?">🌸 Flores</button>
+      <button class="chip" data-question="¿Dónde se realiza?">📍 ¿Dónde es?</button>
+      <button class="chip" data-question="¿Cómo confirmo?">💌 Confirmar</button>
+    </div>
+
+    <!-- Input -->
+    <div class="chatbot-footer">
+      <input type="text" class="chatbot-input" id="chatbotInput"
+             placeholder="Escribe tu mensaje..." maxlength="100" />
+      <button class="chatbot-send" id="chatbotSend" aria-label="Enviar">➤</button>
+    </div>
+  </div>
 
 
   <!-- ==========================================================

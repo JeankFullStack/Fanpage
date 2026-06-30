@@ -24,7 +24,72 @@
 
 
 // ============================================================
-// 2. NAVBAR — Efecto de scroll
+// 2. MODAL DE BIENVENIDA — Popup con nombre
+//    Captura el nombre y reemplaza {name} en los textos
+//    sin destruir los event listeners existentes
+// ============================================================
+(function initWelcomeModal() {
+  const modal = document.getElementById('welcomeModal');
+  const input = document.getElementById('nameInput');
+  const btn = document.getElementById('nameBtn');
+
+  // Reemplaza {name} en todos los nodos de texto del body
+  function personalizePage(name) {
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    const nodesToReplace = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.nodeValue.indexOf('{name}') !== -1) {
+        nodesToReplace.push(node);
+      }
+    }
+    nodesToReplace.forEach(function(n) {
+      n.nodeValue = n.nodeValue.replace(/\{name\}/g, name);
+    });
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    setTimeout(function() {
+      modal.style.display = 'none';
+    }, 600);
+  }
+
+  function handleSubmit() {
+    const name = input.value.trim();
+    if (name.length === 0) {
+      input.style.borderColor = '#e8a0b4';
+      input.placeholder = 'Por favor, escribe tu nombre 💕';
+      input.classList.add('shake');
+      setTimeout(function() {
+        input.classList.remove('shake');
+      }, 500);
+      return;
+    }
+    personalizePage(name);
+    closeModal();
+  }
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
+
+  btn.addEventListener('click', handleSubmit);
+
+  // Animación shake input vacío
+  const style = document.createElement('style');
+  style.textContent = '@keyframes shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-8px); } 50% { transform:translateX(8px); } 75% { transform:translateX(-4px); } } .shake { animation:shake 0.4s ease; }';
+  document.head.appendChild(style);
+})();
+
+
+// ============================================================
+// 3. NAVBAR — Efecto de scroll
 //    Agrega la clase 'scrolled' al hacer scroll > 80px
 // ============================================================
 const navbar = document.getElementById('navbar');
@@ -39,7 +104,7 @@ window.addEventListener('scroll', function() {
 
 
 // ============================================================
-// 3. NAVBAR MÓVIL — Menú hamburguesa
+// 4. NAVBAR MÓVIL — Menú hamburguesa
 //    Abre/cierra el menú en dispositivos móviles
 // ============================================================
 const navToggle = document.getElementById('navToggle');
@@ -60,7 +125,7 @@ document.querySelectorAll('#navLinks a').forEach(function(link) {
 
 
 // ============================================================
-// 4. INVITACIÓN — Sobre que se abre al hacer clic
+// 5. INVITACIÓN — Sobre que se abre al hacer clic
 //    Alterna entre el sello (cerrado) y el contenido (abierto)
 //    Con efecto tilt 3D cuando está abierto
 // ============================================================
@@ -144,7 +209,7 @@ function launchSparkles() {
 
 
 // ============================================================
-// 5. SCROLL REVEAL — Animación al hacer scroll
+// 6. SCROLL REVEAL — Animación al hacer scroll
 //    Las secciones aparecen suavemente al entrar en pantalla
 // ============================================================
 const revealObserver = new IntersectionObserver(function(entries) {
@@ -161,7 +226,7 @@ document.querySelectorAll('.reveal').forEach(function(el) {
 
 
 // ============================================================
-// 6. VIRTUDES — Cards interactivas con clic
+// 7. VIRTUDES — Cards interactivas con clic
 //    Al hacer clic se expanden mostrando el texto oculto
 // ============================================================
 document.querySelectorAll('.virtue-card').forEach(function(card) {
@@ -182,7 +247,7 @@ document.querySelectorAll('.virtue-card').forEach(function(card) {
 
 
 // ============================================================
-// 7. FLORES — Galería interactiva con clic
+// 8. FLORES — Galería interactiva con clic
 //    Al hacer clic en una flor se muestra su significado
 //    con énfasis en un panel inferior
 // ============================================================
@@ -246,7 +311,7 @@ flowerItems.forEach(function(item) {
 
 
 // ============================================================
-// 8. CONFETTI — Efecto de celebración
+// 9. CONFETTI — Efecto de celebración
 //    Crea partículas de colores que caen desde arriba
 // ============================================================
 function launchConfetti() {
@@ -294,7 +359,7 @@ function launchConfetti() {
 
 
 // ============================================================
-// 9. COUNTDOWN — Contador regresivo
+// 10. COUNTDOWN — Contador regresivo
 //    Cuenta días, horas, minutos y segundos hasta el evento
 //    Fecha objetivo: 01 de Agosto 2025, 8:00 PM (UTC-5, Perú)
 // ============================================================
@@ -338,7 +403,277 @@ function launchConfetti() {
 
 
 // ============================================================
-// 10. BOTÓN DE CONFIRMACIÓN — CTA final
+// 11. CHATBOT FLOTANTE — Asistente virtual
+//     Responde preguntas sobre el evento usando la info de la web
+// ============================================================
+(function initChatbot() {
+  const toggle = document.getElementById('chatbotToggle');
+  const panel = document.getElementById('chatbotPanel');
+  const closeBtn = document.getElementById('chatbotClose');
+  const body = document.getElementById('chatbotBody');
+  const input = document.getElementById('chatbotInput');
+  const send = document.getElementById('chatbotSend');
+  const chips = document.querySelectorAll('.chip');
+  const suggestions = document.getElementById('chatbotSuggestions');
+
+  let isOpen = false;
+  let firstOpen = true;
+
+  function openChat() {
+    isOpen = true;
+    toggle.classList.add('open');
+    panel.classList.add('open');
+    // Quitar notificación si existía
+    var dot = toggle.querySelector('.notification-dot');
+    if (dot) dot.remove();
+    setTimeout(function() { input.focus(); }, 400);
+    // Inicia timer de inactividad
+    resetInactivityTimer();
+  }
+
+  function closeChat() {
+    isOpen = false;
+    toggle.classList.remove('open');
+    panel.classList.remove('open');
+    // Cancela timer de inactividad
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+  }
+
+  toggle.addEventListener('click', function() {
+    if (isOpen) closeChat(); else openChat();
+  });
+
+  closeBtn.addEventListener('click', closeChat);
+
+  // Base de conocimiento
+  function getAnswer(question) {
+    var q = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    // Saludar
+    if (/\b(hola|buenas|hey|buen[ao]|saludos|que tal|quiubola)\b/.test(q)) {
+      return '¡Hola! 🌸 Bienvenida a <strong>Ellos para ellas</strong>. ¿En qué puedo ayudarte? Puedes preguntarme sobre el evento, las virtudes, las flores o cómo confirmar tu asistencia.';
+    }
+
+    // Gracias
+    if (/\b(gracias|graciass|thanks|thank|te lo agradezco|muchas gracias)\b/.test(q)) {
+      return '¡De nada! 💕 Si tienes otra duda, aquí estoy para ti. ¡Que tengas un día hermoso! 🌷';
+    }
+
+    // Que es / descripcion del evento
+    if (/\b(que es|que son|explica|cuentalo|cuentame|describe|acerca de|sobre)\b/.test(q) &&
+        /\b(evento|ellos|ellas|esto|esta pagina|esta web|invitacion)\b/.test(q)) {
+      return '<strong>Ellos para ellas</strong> es un evento especial creado por <strong>JOAS</strong> para celebrar y honrar a cada mujer. Habrá música, postres, sorpresas y momentos inolvidables. ✨ Está diseñado para que cada invitada se sienta única y valorada.';
+    }
+
+    // JOAS significado
+    if (/\b(que significa|significa|que es|que quieredecir|significado)\b/.test(q) && /\b(joas|logo|nombre|siglas)\b/.test(q)) {
+      return '<strong>JOAS</strong> significa <strong>"Jóvenes Obedientes, Amables y Serviciales"</strong>. Es el grupo de varones que organiza <em>Ellos para ellas</em> con mucho cariño. Este evento nace de su corazón para honrar y celebrar a cada mujer. 💖✨';
+    }
+
+    // Quien organiza
+    if (/\b(quien|quienes|organiza|organizan|organizador|detras de esto|quien lo hizo)\b/.test(q)) {
+      return 'El evento es organizado por los <strong>varones de JOAS</strong> 🤵✨ — <em>"Jóvenes Obedientes, Amables y Serviciales"</em>. Ellos prepararon cada detalle con mucho amor para celebrar a todas las mujeres. 💕';
+    }
+
+    // Cuando / fecha
+    if (/\b(cuando|cual es la fecha|fecha|dia|que dia|sabado|agosto)\b/.test(q) &&
+        /\b(evento|invitacion|es|inicia|comienza)\b/.test(q) || 
+        /\b(cuando es|cual es la fecha|fecha del evento|que dia es)\b/.test(q)) {
+      return 'El evento será el <strong>sábado 01 de Agosto de 2026</strong> a las <strong>8:00 PM</strong> (hora Perú). ¡Falta poco! 🎉 Échale un ojo al contador regresivo en la página.';
+    }
+
+    // Hora
+    if (/\b(hora|a que hora|horario|que hora|empieza|comienza)\b/.test(q)) {
+      return 'El evento comienza a las <strong>8:00 PM</strong> (hora Perú / UTC-5). ¡No llegues tarde! ⏰';
+    }
+
+    // Donde / lugar
+    if (/\b(donde|lugar|ubicacion|direccion|sky lounge|skylounge|en donde|en que lugar)\b/.test(q)) {
+      return 'El evento se realizará en <strong>Sky Lounge</strong> 🏙️. Un lugar elegante y acogedor para una noche especial.';
+    }
+
+    // Virtudes
+    if (/\b(virtudes|cualidades|cuales son las virtudes|que virtudes|dignidad|sabiduria|fortaleza|bondad|gracia|valentia)\b/.test(q)) {
+      return 'Las <strong>6 virtudes</strong> que celebramos son: 👑 <strong>Dignidad</strong>, 🕊️ <strong>Sabiduría</strong>, 💪 <strong>Fortaleza</strong>, 🤍 <strong>Bondad</strong>, 🦋 <strong>Gracia</strong> y 🔥 <strong>Valentía</strong>. Cada una tiene un versículo bíblico y una descripción especial. ¡Toca las cards en la sección de Virtudes para descubrirlas! ✨';
+    }
+
+    // Flores
+    if (/\b(flores|flor|cuales son las flores|que flores|rosa|tulipan|cerezo|girasol|hibisco|galeria)\b/.test(q)) {
+      return 'Tenemos <strong>5 flores</strong> con su significado: 🌹 <strong>Rosa</strong> (amor eterno), 🌷 <strong>Tulipán</strong> (gracia), 🌸 <strong>Cerezo</strong> (renovación), 🌻 <strong>Girasol</strong> (fortaleza) y 🌺 <strong>Hibisco</strong> (belleza delicada). Tocá cada una en la galería para ver su mensaje 💕';
+    }
+
+    // Codigo
+    if (/\b(codigo|code|clave|tag|hashtag|etiqueta)\b/.test(q)) {
+      return 'El código del evento es <strong>#EllosParaEllas</strong> 💫 ¡Úsalo para compartir en redes!';
+    }
+
+    // Carta
+    if (/\b(carta|poema|mensaje|que dice la carta|texto|poesia)\b/.test(q)) {
+      return 'Hay una carta hermosa dedicada a ti 💌 Habla sobre tu valor, tu fortaleza y lo extraordinaria que eres. Dice que <em>"no eres cualquier mujer: eres una obra maestra"</em>. Ve a la sección <strong>Carta</strong> para leerla completa. ✨';
+    }
+
+    // Confirmar / RSVP
+    if (/\b(confirmar|confirmo|como confirmo|asistencia|rsvp|asistire|quiero ir|boton)\b/.test(q)) {
+      return 'Para confirmar tu asistencia, ve a la sección <strong>"Confirmar"</strong> al final de la página y haz clic en <strong>"Sí, acepto"</strong> 💖 ¡Te esperamos! 🎉';
+    }
+
+    // Musica / postres / sorpresas
+    if (/\b(musica|postres|sorpresas|que hay|actividades|que habra)\b/.test(q)) {
+      return 'Habrá <strong>música</strong> para ambientar la noche, <strong>postres exquisitos</strong> para endulzar el momento, y <strong>sorpresas especiales</strong> que hicimos con mucho cariño para ti 🎵🍰🎁 ¡No te lo pierdas!';
+    }
+
+    // Despedida
+    if (/\b(chao|bye|adios|nos vemos|hasta luego|me voy|salir)\b/.test(q)) {
+      return '¡Fue un placer charlar contigo! 💕 Nos vemos en el evento. ¡Prepárate para una noche mágica! ✨🌹';
+    }
+
+    // Fecha larga suelta
+    if (/\b(01\s*de\s*agosto|primero\s*de\s*agosto|1\s*\/\s*08|01\/08)\b/.test(q)) {
+      return '¡Sí! La fecha confirmada es el <strong>sábado 01 de Agosto de 2026</strong> a las <strong>8:00 PM</strong> en <strong>Sky Lounge</strong>. ¡Te esperamos! 🎉';
+    }
+
+    // Por defecto — mensaje triste pero amable
+    return 'Ay, no conozco esa información 😢💔. ¿Me preguntas otra cosa? Puedo contarte sobre las <strong>virtudes de la mujer</strong>, el <strong>significado de JOAS</strong>, la <strong>fecha del evento</strong>, las <strong>flores</strong> o cómo <strong>confirmar tu asistencia</strong>. ¡Te escucho! 🌸';
+  }
+
+  function addMessage(text, type) {
+    var div = document.createElement('div');
+    div.className = 'chatbot-msg ' + type;
+
+    var avatar = document.createElement('div');
+    avatar.className = 'msg-avatar';
+    avatar.textContent = type === 'bot' ? '🌸' : '💁';
+
+    var content = document.createElement('div');
+    content.className = 'msg-content';
+
+    var bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = text;
+    content.appendChild(bubble);
+
+    var time = document.createElement('div');
+    time.className = 'msg-time';
+    var now = new Date();
+    time.textContent = now.getHours().toString().padStart(2, '0') + ':' +
+                       now.getMinutes().toString().padStart(2, '0');
+    content.appendChild(time);
+
+    div.appendChild(avatar);
+    div.appendChild(content);
+    body.appendChild(div);
+    scrollToBottom();
+  }
+
+  function scrollToBottom() {
+    setTimeout(function() {
+      body.scrollTop = body.scrollHeight;
+    }, 50);
+  }
+
+  // Mostrar typing indicator y responder
+  function simulateResponse(answer) {
+    var typing = document.getElementById('typingIndicator');
+    if (!typing) {
+      typing = document.createElement('div');
+      typing.className = 'typing-indicator';
+      typing.id = 'typingIndicator';
+      typing.innerHTML = '<div class="msg-avatar">🌸</div><div class="typing-dots"><span></span><span></span><span></span></div>';
+      body.appendChild(typing);
+    }
+    typing.classList.add('show');
+    scrollToBottom();
+
+    var delay = 600 + Math.random() * 800;
+    setTimeout(function() {
+      typing.classList.remove('show');
+      addMessage(answer, 'bot');
+      hideSuggestions();
+      // Reinicia el timer de inactividad
+      resetInactivityTimer();
+    }, delay);
+  }
+
+  var inactivityTimer = null;
+
+  function resetInactivityTimer() {
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    if (isOpen) {
+      inactivityTimer = setTimeout(function() {
+        // Preguntar si necesita ayuda
+        var lastMsg = body.querySelector('.chatbot-msg:last-child .msg-bubble');
+        if (lastMsg && lastMsg.textContent.trim().length > 0) {
+          addMessage('¿Necesitas ayuda con algo más? 💕 Puedes preguntarme sobre la fecha, las virtudes, las flores o cómo confirmar. ¡Estoy aquí para ti! 🌸', 'bot');
+          showSuggestions();
+        }
+      }, 45000); // 45 segundos
+    }
+  }
+
+  function hideSuggestions() {
+    suggestions.style.transition = 'max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease';
+    suggestions.style.maxHeight = '0';
+    suggestions.style.opacity = '0';
+    suggestions.style.margin = '0';
+    suggestions.style.overflow = 'hidden';
+    suggestions.style.padding = '0 1.2rem';
+  }
+
+  function showSuggestions() {
+    suggestions.style.maxHeight = '';
+    suggestions.style.opacity = '';
+    suggestions.style.margin = '';
+    suggestions.style.overflow = '';
+    suggestions.style.padding = '';
+    suggestions.style.transition = '';
+  }
+
+  function handleUserMessage(text) {
+    var trimmed = text.trim();
+    if (!trimmed) return;
+
+    addMessage(trimmed, 'user');
+    input.value = '';
+    // Cancela el timer de inactividad cuando la usuaria escribe
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+
+    var answer = getAnswer(trimmed);
+    simulateResponse(answer);
+  }
+
+  // Enviar con botón
+  send.addEventListener('click', function() {
+    handleUserMessage(input.value);
+  });
+
+  // Enviar con Enter
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleUserMessage(input.value);
+    }
+  });
+
+  // Chips de preguntas sugeridas
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var question = this.dataset.question || this.textContent;
+      // Si el chat está cerrado, se abre
+      if (!isOpen) openChat();
+      // Pequeño delay para que se vea natural
+      setTimeout(function() {
+        handleUserMessage(question);
+      }, 300);
+    });
+  });
+
+  // Abrir desde el nav (si alguien hace clic en un enlace a #invitacion o similar,
+  // el chatbot no interfiere)
+})();
+
+
+// ============================================================
+// 12. BOTÓN DE CONFIRMACIÓN — CTA final
 //     Lanza confetti y muestra mensaje de respuesta
 // ============================================================
 document.getElementById('btnYes').addEventListener('click', function() {
