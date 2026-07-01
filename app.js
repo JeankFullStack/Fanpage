@@ -492,14 +492,51 @@ function launchConfetti() {
       return 'El evento se realizará en <strong>Sky Lounge</strong> 🏙️. Un lugar elegante y acogedor para una noche especial.';
     }
 
-    // Virtudes
-    if (/\b(virtudes|cualidades|cuales son las virtudes|que virtudes|dignidad|sabiduria|fortaleza|bondad|gracia|valentia)\b/.test(q)) {
-      return 'Las <strong>6 virtudes</strong> que celebramos son: 👑 <strong>Dignidad</strong>, 🕊️ <strong>Sabiduría</strong>, 💪 <strong>Fortaleza</strong>, 🤍 <strong>Bondad</strong>, 🦋 <strong>Gracia</strong> y 🔥 <strong>Valentía</strong>. Cada una tiene un versículo bíblico y una descripción especial. ¡Toca las cards en la sección de Virtudes para descubrirlas! ✨';
+    // Virtudes (general)
+    if (/\b(virtudes|cualidades|cuales son las virtudes|que virtudes)\b/.test(q)) {
+      return 'Las <strong>6 virtudes</strong> que celebramos son: 👑 Dignidad, 🕊️ Sabiduría, 💪 Fortaleza, 🤍 Bondad, 🦋 Gracia y 🔥 Valentía. Cada una tiene un versículo bíblico y una reflexión especial. Escoge la que más te guste y te cuento más sobre ella. ✨';
     }
 
-    // Flores
-    if (/\b(flores|flor|cuales son las flores|que flores|rosa|tulipan|cerezo|girasol|hibisco|galeria)\b/.test(q)) {
-      return 'Tenemos <strong>5 flores</strong> con su significado: 🌹 <strong>Rosa</strong> (amor eterno), 🌷 <strong>Tulipán</strong> (gracia), 🌸 <strong>Cerezo</strong> (renovación), 🌻 <strong>Girasol</strong> (fortaleza) y 🌺 <strong>Hibisco</strong> (belleza delicada). Tocá cada una en la galería para ver su mensaje 💕';
+    // --- CADA VIRTUD EN ESPECÍFICO ---
+    if (/\b(dignidad)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'dignidad' || q === 'cuentame sobre la dignidad') {
+      return '<strong>Dignidad</strong> 👑 — <em>"Fuerza y dignidad son su vestidura"</em> (Proverbios 31:25).<br><br>Tu valor no está en lo que haces, sino en quien eres. Caminas con la cabeza en alto porque sabes que eres una joya preciosa. Nadie puede opacar tu luz porque tu identidad está firme como una torre. 💎';
+    }
+    if (/\b(sabiduria|sabiduría)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'sabiduria' || q === 'cuentame sobre la sabiduria') {
+      return '<strong>Sabiduría</strong> 🕊️ — <em>"Abre su boca con sabiduría, y la ley de clemencia está en su lengua"</em> (Proverbios 31:26).<br><br>Tus palabras son medicina para el alma. Sabes cuándo hablar y cuándo escuchar. Tu consejo es refugio de paz y tus decisiones están llenas de entendimiento y gracia. 📖';
+    }
+    if (/\b(fortaleza)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'fortaleza' || q === 'cuentame sobre la fortaleza') {
+      return '<strong>Fortaleza</strong> 💪 — <em>"Los que esperan en Jehová renovarán sus fuerzas; levantarán alas como las águilas"</em> (Isaías 40:31).<br><br>Como el roble frente a la tormenta, te mantienes firme. Tus pruebas te han esculpido y hoy eres más fuerte que ayer. Nada te doblega porque tu espíritu es indomable. 🌳';
+    }
+    if (/\b(bondad)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'bondad' || q === 'cuentame sobre la bondad') {
+      return '<strong>Bondad</strong> 🤍 — <em>"Extiende su mano al pobre, y al necesitado tiende sus brazos"</em> (Proverbios 31:20).<br><br>Tu corazón generoso abraza sin condición. En tus manos, el amor se convierte en acción y la fe en esperanza. Dejas una huella de luz allá por donde pasas. ✨';
+    }
+    if (/\b(gracia)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'gracia' || q === 'cuentame sobre la gracia') {
+      return '<strong>Gracia</strong> 🦋 — <em>"Eres la más hermosa de todas; la gracia se derramó en tus labios"</em> (Salmos 45:2).<br><br>Tu presencia es como una danza de mariposas. Ligera, elegante, transformando todo a tu alrededor con belleza. Tu porte y delicadeza enamoran sin esfuerzo. 🌷';
+    }
+    if (/\b(valent[ií]a)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'valentia' || q === 'cuentame sobre la valentia') {
+      return '<strong>Valentía</strong> 🔥 — <em>"Esfuérzate y sé valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo"</em> (Josué 1:9).<br><br>No temes soñar en grande ni comenzar de nuevo. Tu coraje inspira a quienes tienen la dicha de caminar a tu lado. Eres fuego que enciende esperanza en los demás. ⚡';
+    }
+
+    // Flores (general)
+    if (/\b(flores|flor|cuales son las flores|que flores|galeria)\b/.test(q)) {
+      return 'Tenemos <strong>5 flores</strong> con su significado: 🌹 <strong>Rosa</strong> (amor eterno), 🌷 <strong>Tulipán</strong> (gracia), 🌸 <strong>Cerezo</strong> (renovación), 🌻 <strong>Girasol</strong> (fortaleza) y 🌺 <strong>Hibisco</strong> (belleza delicada). ¿Quieres saber más de alguna en especial? Solo dímelo 💕';
+    }
+
+    // --- CADA FLOR EN ESPECÍFICO ---
+    if (/\b(rosa)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'rosa' || q === 'cuentame sobre la rosa') {
+      return 'La <strong>Rosa</strong> 🌹 simboliza el <strong>amor y la belleza eterna</strong>. Es la flor del amor verdadero, de la pasión que nunca se apaga. Como tú, una mujer que merece ser amada y admirada cada día. Su fragancia y sus pétalos suaves nos recuerdan lo delicada y poderosa que eres a la vez. 💖';
+    }
+    if (/\b(tulip[aá]n)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'tulipan' || q === 'cuentame sobre el tulipan') {
+      return 'El <strong>Tulipán</strong> 🌷 representa la <strong>gracia y la elegancia</strong>. Su forma perfecta y sus colores vibrantes reflejan tu porte único. El tulipán florece con dignidad, igual que tú, que cautivas sin necesidad de decir una palabra. Una flor clásica, sofisticada y llena de encanto. ✨';
+    }
+    if (/\b(cerezo)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'cerezo' || q === 'cuentame sobre el cerezo') {
+      return 'El <strong>Cerezo</strong> 🌸 es símbolo de <strong>renovación y esperanza</strong>. Sus flores brotan cada primavera recordándonos que siempre hay una nueva oportunidad. Como tú, que cada día renaces más fuerte y más hermosa. La vida florece a tu paso y todo se llena de color. 🌅';
+    }
+    if (/\b(girasol)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'girasol' || q === 'cuentame sobre el girasol') {
+      return 'El <strong>Girasol</strong> 🌻 es la flor de la <strong>fortaleza y la lealtad</strong>. Siempre busca la luz, sin importar las sombras. Así eres tú: una mujer que mira hacia adelante, que encuentra el sol incluso en los días nublados. Tu energía y tu fe mueven montañas. ☀️';
+    }
+    if (/\b(hibisco)\b/.test(q) && /\b(cuentame|cuéntame|dime|habla|sobre|explica|que es|significa)\b/.test(q) || q === 'hibisco' || q === 'cuentame sobre el hibisco') {
+      return 'El <strong>Hibisco</strong> 🌺 es la flor de la <strong>belleza delicada</strong>. Exótica, vibrante y llena de vida. Como tú, que con tu ternura y tu fuerza cautivas a quienes te rodean. Una flor que no pasa desapercibida, que deja huella en el corazón de quien la mira. 💕';
     }
 
     // Codigo
@@ -572,7 +609,7 @@ function launchConfetti() {
   }
 
   // Mostrar typing indicator y responder
-  function simulateResponse(answer) {
+  function simulateResponse(answer, chipsContext) {
     var typing = document.getElementById('typingIndicator');
     if (!typing) {
       typing = document.createElement('div');
@@ -588,26 +625,103 @@ function launchConfetti() {
     setTimeout(function() {
       typing.classList.remove('show');
       addMessage(answer, 'bot');
-      hideSuggestions();
+
+      // Mostrar chips según el contexto
+      if (chipsContext === 'virtues') {
+        showVirtueChips();
+      } else if (chipsContext === 'flowers') {
+        showFlowerChips();
+      } else {
+        showMainChips();
+      }
+
       // Reinicia el timer de inactividad
       resetInactivityTimer();
     }, delay);
   }
 
   var inactivityTimer = null;
+  var subchipFlow = false;
 
   function resetInactivityTimer() {
     if (inactivityTimer) clearTimeout(inactivityTimer);
     if (isOpen) {
+      var timeout = subchipFlow ? 30000 : 25000;
       inactivityTimer = setTimeout(function() {
         // Preguntar si necesita ayuda
         var lastMsg = body.querySelector('.chatbot-msg:last-child .msg-bubble');
         if (lastMsg && lastMsg.textContent.trim().length > 0) {
-          addMessage('¿Necesitas ayuda con algo más? 💕 Puedes preguntarme sobre la fecha, las virtudes, las flores o cómo confirmar. ¡Estoy aquí para ti! 🌸', 'bot');
-          showSuggestions();
+          if (subchipFlow) {
+            addMessage('¿Te podemos ayudar en algo más? 💕', 'bot');
+            showMainChips();
+          } else {
+            addMessage('¿Necesitas ayuda con algo más? 💕 Puedes preguntarme sobre la fecha, las virtudes, las flores o cómo confirmar. ¡Estoy aquí para ti! 🌸', 'bot');
+            showSuggestions();
+          }
         }
-      }, 45000); // 45 segundos
+      }, timeout);
     }
+  }
+
+  // ---- SUB-CHIPS: virtudes ----
+  function showVirtueChips() {
+    subchipFlow = true;
+    suggestions.innerHTML =
+      '<button class="chip subchip" data-question="Cuéntame sobre la dignidad 👑">👑 Dignidad</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre la sabiduría 🕊️">🕊️ Sabiduría</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre la fortaleza 💪">💪 Fortaleza</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre la bondad 🤍">🤍 Bondad</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre la gracia 🦋">🦋 Gracia</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre la valentía 🔥">🔥 Valentía</button>';
+    attachSubChips();
+    showSuggestions();
+  }
+
+  // ---- SUB-CHIPS: flores ----
+  function showFlowerChips() {
+    subchipFlow = true;
+    suggestions.innerHTML =
+      '<button class="chip subchip" data-question="Cuéntame sobre la rosa 🌹">🌹 Rosa</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre el tulipán 🌷">🌷 Tulipán</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre el cerezo 🌸">🌸 Cerezo</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre el girasol 🌻">🌻 Girasol</button>' +
+      '<button class="chip subchip" data-question="Cuéntame sobre el hibisco 🌺">🌺 Hibisco</button>';
+    attachSubChips();
+    showSuggestions();
+  }
+
+  // ---- CHIPS PRINCIPALES ----
+  function showMainChips() {
+    subchipFlow = false;
+    suggestions.innerHTML =
+      '<button class="chip" data-question="¿Qué es JOAS?">✨ ¿Qué es JOAS?</button>' +
+      '<button class="chip" data-question="¿Cuándo es el evento?">📅 ¿Cuándo es?</button>' +
+      '<button class="chip" data-question="¿Cuáles son las virtudes?">👑 Virtudes</button>' +
+      '<button class="chip" data-question="¿Qué flores hay?">🌸 Flores</button>' +
+      '<button class="chip" data-question="¿Dónde se realiza?">📍 ¿Dónde es?</button>' +
+      '<button class="chip" data-question="¿Cómo confirmo?">💌 Confirmar</button>';
+    attachMainChips();
+    showSuggestions();
+  }
+
+  function attachSubChips() {
+    document.querySelectorAll('#chatbotSuggestions .subchip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var question = this.dataset.question || this.textContent;
+        if (!isOpen) openChat();
+        setTimeout(function() { handleUserMessage(question); }, 300);
+      });
+    });
+  }
+
+  function attachMainChips() {
+    document.querySelectorAll('#chatbotSuggestions .chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var question = this.dataset.question || this.textContent;
+        if (!isOpen) openChat();
+        setTimeout(function() { handleUserMessage(question); }, 300);
+      });
+    });
   }
 
   function hideSuggestions() {
@@ -638,7 +752,19 @@ function launchConfetti() {
     if (inactivityTimer) clearTimeout(inactivityTimer);
 
     var answer = getAnswer(trimmed);
-    simulateResponse(answer);
+    var context = getChipContext(trimmed);
+    simulateResponse(answer, context);
+  }
+
+  // Detecta si la pregunta es sobre virtudes o flores para mostrar sub-chips
+  function getChipContext(question) {
+    var q = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    // Si pregunta por algo específico (sub-chip), no repetir sub-chips
+    if (/^cuentame sobre/.test(q) || /^dime sobre/.test(q) || /^hablame de/.test(q)) return null;
+    // General virtue/flower → mostrar sub-chips
+    if (/\b(virtudes|cualidades|cuales son las virtudes|que virtudes)\b/.test(q)) return 'virtues';
+    if (/\b(flores|flor|cuales son las flores|que flores|galeria)\b/.test(q)) return 'flowers';
+    return null;
   }
 
   // Enviar con botón

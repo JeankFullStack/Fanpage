@@ -568,20 +568,40 @@ section {
 .virtue-verse {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #b08ab8;
   background: rgba(201, 160, 220, 0.08);
-  padding: 0.4rem 0.8rem;
-  border-radius: 12px;
-  margin: 0.6rem 0;
-  line-height: 1.5;
-  border-left: 2px solid rgba(201, 160, 220, 0.2);
-  transition: all 0.4s;
+  padding: 0.6rem 1rem;
+  border-radius: 14px;
+  margin: 0.8rem 0;
+  line-height: 1.7;
+  border-left: 3px solid rgba(201, 160, 220, 0.2);
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.virtue-verse::before {
+  content: '📖';
+  position: absolute;
+  left: -8px;
+  top: -6px;
+  font-size: 1.8rem;
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .virtue-card.active .virtue-verse {
   background: rgba(201, 160, 220, 0.15);
   border-left-color: #c9a0dc;
+  font-size: 1.05rem;
+  animation: verseGlow 2s ease-in-out infinite;
+  box-shadow: 0 2px 20px rgba(201, 160, 220, 0.1);
+}
+
+@keyframes verseGlow {
+  0%, 100% { box-shadow: 0 2px 20px rgba(201, 160, 220, 0.1); }
+  50% { box-shadow: 0 2px 30px rgba(201, 160, 220, 0.2), inset 0 0 20px rgba(201, 160, 220, 0.05); }
 }
 
 /* Texto oculto que se revela al hacer clic */
@@ -1631,6 +1651,21 @@ footer {
   cursor: pointer;
   transition: all 0.3s;
   white-space: nowrap;
+}
+
+.chip.subchip {
+  background: linear-gradient(135deg, rgba(201, 160, 220, 0.15), rgba(245, 200, 220, 0.15));
+  border: 1px solid rgba(201, 160, 220, 0.3);
+  font-size: 0.75rem;
+  padding: 0.35rem 0.7rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.chip.subchip:hover {
+  background: linear-gradient(135deg, rgba(201, 160, 220, 0.3), rgba(245, 200, 220, 0.3));
+  border-color: rgba(201, 160, 220, 0.6);
+  transform: scale(1.05);
 }
 
 .chip:hover {
