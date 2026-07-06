@@ -1210,6 +1210,23 @@ section {
 
 .response-msg.show { opacity: 1; }
 
+.response-msg .wa-link {
+  display: inline-block;
+  font-weight: 600;
+  color: #25D366;
+  text-decoration: none;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  background: rgba(37, 211, 102, 0.1);
+  border: 1.5px solid rgba(37, 211, 102, 0.25);
+  transition: all 0.3s;
+  font-size: 0.95rem;
+}
+.response-msg .wa-link:hover {
+  background: rgba(37, 211, 102, 0.2);
+  transform: scale(1.05);
+}
+
 /* ============================================================
    FOOTER — Pie de página
    ============================================================ */

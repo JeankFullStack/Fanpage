@@ -64,13 +64,14 @@
     const name = input.value.trim();
     if (name.length === 0) {
       input.style.borderColor = '#e8a0b4';
-      input.placeholder = 'Por favor, escribe tu nombre 💕';
+      input.placeholder = 'Por favor, escribe tu nombre y apellido 💕';
       input.classList.add('shake');
       setTimeout(function() {
         input.classList.remove('shake');
       }, 500);
       return;
     }
+    window.userFullName = name;
     personalizePage(name);
     closeModal();
   }
@@ -800,24 +801,28 @@ function launchConfetti() {
 
 // ============================================================
 // 12. BOTÓN DE CONFIRMACIÓN — CTA final
-//     Lanza confetti y muestra mensaje de respuesta
+//     Envía correo, lanza confetti y muestra link WhatsApp
 // ============================================================
 document.getElementById('btnYes').addEventListener('click', function() {
+  // Envía correo vía EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("tVrBoddftwRKs-GRH");
+    emailjs.send("service_r8rnv6t", "template_ocnvagk", {
+      name: window.userFullName || "Invitada",
+      title: "Confirmación de asistencia - Ellos para Ellas"
+    });
+  }
+
   // Lanza el confetti
   launchConfetti();
 
-  // Mensajes de respuesta aleatorios
+  // Muestra mensaje con link a WhatsApp
   const msg = document.getElementById('responseMsg');
-  const msgs = [
-    '¡Sabía que dirías que sí! 💖',
-    '¡Eres increíble! Nos vemos pronto ✨',
-    '¡Prepárate para una noche mágica! 🌹',
-    '¡Tu luz lo iluminará todo! 🌟',
-    '¡Una realeza como tú merece lo mejor! 👑',
-    '¡Vamos a celebrar tu grandeza! 🎉'
-  ];
-
-  msg.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+  const nombre = window.userFullName || "Invitada";
+  const waText = encodeURIComponent("Hola, soy " + nombre + ". Me registré al evento de Ellos para Ellas");
+  msg.innerHTML = '💌 ¡Gracias por confirmar, <strong>' + nombre + '</strong>!<br><br>' +
+    'Si tienes alguna consulta o duda, escríbenos por ' +
+    '<a href="https://wa.me/51944207834?text=' + waText + '" target="_blank" class="wa-link">WhatsApp 📱</a>';
   msg.classList.add('show');
 
   // Desactiva el botón

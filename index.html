@@ -32,12 +32,12 @@
     <div class="welcome-card">
       <div class="welcome-heart">💌</div>
       <h2 class="welcome-title">¡Bienvenida!</h2>
-      <p class="welcome-sub">Antes de entrar, dime tu nombre</p>
-      <div class="welcome-input-wrap">
-        <input type="text" class="welcome-input" id="nameInput"
-               placeholder="Escribe tu nombre aquí..." maxlength="30" autofocus />
-        <span class="welcome-input-icon">✿</span>
-      </div>
+       <p class="welcome-sub">Antes de entrar, dime tu nombre completo</p>
+       <div class="welcome-input-wrap">
+         <input type="text" class="welcome-input" id="nameInput"
+                placeholder="Pon tu nombre y apellido aquí..." maxlength="60" autofocus />
+         <span class="welcome-input-icon">✿</span>
+       </div>
       <button class="btn btn-primary welcome-btn" id="nameBtn">Entrar ✨</button>
       <p class="welcome-hint">Presiona Enter también 💕</p>
     </div>
@@ -527,6 +527,7 @@
   <!-- ==========================================================
     SCRIPTS — JavaScript externo
     ========================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="app.js"></script>
 
 </body>
