@@ -218,6 +218,29 @@ nav.scrolled {
   gap: 0.6rem;
 }
 
+/* Reset imágenes */
+img {
+  display: block;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Logo imagen en hero */
+.hero-logo-img {
+  max-width: clamp(280px, 45vw, 500px);
+  width: 100%;
+  height: auto;
+  margin: 0 auto 1rem;
+  animation: fadeInDown 1.2s ease 0.2s both;
+}
+
+@media (max-width: 768px) {
+  .hero-logo-img {
+    max-width: 280px;
+  }
+}
+
 .nav-logo .logo-badge {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
