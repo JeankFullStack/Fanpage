@@ -74,6 +74,8 @@
     window.userFullName = name;
     personalizePage(name);
     closeModal();
+    // Iniciar música después de la interacción
+    startMusic();
   }
 
   input.addEventListener('keydown', function(e) {
@@ -87,6 +89,44 @@
   style.textContent = '@keyframes shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-8px); } 50% { transform:translateX(8px); } 75% { transform:translateX(-4px); } } .shake { animation:shake 0.4s ease; }';
   document.head.appendChild(style);
 })();
+
+
+// ============================================================
+// 2B. MÚSICA DE FONDO — River Flows in You de Yiruma
+//     Control play/pause con botón flotante
+// ============================================================
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicIcon = document.getElementById('musicIcon');
+let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted || !bgMusic) return;
+  musicStarted = true;
+  bgMusic.volume = 0.3;
+  bgMusic.play().then(function() {
+    if (musicToggle) {
+      musicToggle.classList.add('visible', 'playing');
+    }
+    if (musicIcon) musicIcon.textContent = '🎵';
+  }).catch(function() {
+    // Silencio si el navegador bloquea
+  });
+}
+
+if (musicToggle) {
+  musicToggle.addEventListener('click', function() {
+    if (bgMusic.paused) {
+      bgMusic.play();
+      musicToggle.classList.add('playing');
+      musicIcon.textContent = '🎵';
+    } else {
+      bgMusic.pause();
+      musicToggle.classList.remove('playing');
+      musicIcon.textContent = '🎵';
+    }
+  });
+}
 
 
 // ============================================================

@@ -1754,6 +1754,82 @@ footer {
    CHATBOT FLOTANTE — Asistente virtual
    ============================================================ */
 
+/* ============================================================
+   BOTÓN DE MÚSICA FLOTANTE — Play / Pause
+   ============================================================ */
+.music-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #6a5a72;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(100, 60, 120, 0.12);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.6);
+}
+
+.music-toggle.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.music-toggle:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 25px rgba(180, 140, 200, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.music-toggle:active {
+  transform: scale(0.92);
+}
+
+.music-toggle.playing {
+  background: linear-gradient(135deg, rgba(232, 160, 180, 0.2), rgba(201, 160, 220, 0.2));
+  border-color: rgba(201, 160, 220, 0.3);
+}
+
+.music-toggle-icon {
+  transition: transform 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-toggle.playing .music-toggle-icon {
+  animation: musicSpin 4s linear infinite;
+}
+
+@keyframes musicSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .music-toggle {
+    bottom: 16px;
+    left: 16px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+}
+
 /* Botón flotante */
 .chatbot-toggle {
   position: fixed;
