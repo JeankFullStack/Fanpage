@@ -210,6 +210,51 @@ function launchSparkles() {
 
 
 // ============================================================
+// 5B. RECORDATORIO — Tarjeta interactiva que se abre al hacer clic
+// ============================================================
+const reminderCard = document.getElementById('reminderCard');
+
+if (reminderCard) {
+  reminderCard.addEventListener('click', function(e) {
+    const isOpen = this.classList.contains('open');
+
+    if (!isOpen) {
+      this.classList.add('open');
+      launchReminderSparkles();
+    } else {
+      if (e.target.closest('.reminder-toggle-hint') || !e.target.closest('.reminder-content')) {
+        this.classList.remove('open');
+      }
+    }
+  });
+}
+
+function launchReminderSparkles() {
+  const container = document.getElementById('reminderSparkles');
+  if (!container) return;
+  container.innerHTML = '';
+  const emojis = ['⏰', '✨', '🌸', '💖', '🎀', '🌟', '💫'];
+
+  for (let i = 0; i < 16; i++) {
+    const el = document.createElement('span');
+    el.className = 'reminder-sparkle';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    const angle = (Math.PI * 2 / 16) * i + (Math.random() - 0.5) * 0.5;
+    const dist = 70 + Math.random() * 90;
+    el.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+    el.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+    el.style.animationDelay = (Math.random() * 0.3) + 's';
+    el.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+    container.appendChild(el);
+  }
+
+  setTimeout(function() {
+    container.innerHTML = '';
+  }, 1500);
+}
+
+
+// ============================================================
 // 6. SCROLL REVEAL — Animación al hacer scroll
 //    Las secciones aparecen suavemente al entrar en pantalla
 // ============================================================
@@ -370,9 +415,22 @@ function launchConfetti() {
   const cdHours = document.getElementById('cdHours');
   const cdMinutes = document.getElementById('cdMinutes');
   const cdSeconds = document.getElementById('cdSeconds');
+  const reminderDays = document.getElementById('reminderDays');
+  const reminderDaysSeal = document.getElementById('reminderDaysSeal');
 
   function pad(num) {
     return num < 10 ? '0' + num : '' + num;
+  }
+
+  function updateReminderDays() {
+    if (!reminderDays) return;
+    const now = new Date();
+    const diff = targetDate.getTime() - now.getTime();
+    if (diff > 0) {
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      reminderDays.textContent = days;
+      if (reminderDaysSeal) reminderDaysSeal.textContent = days;
+    }
   }
 
   function updateCountdown() {
@@ -384,6 +442,8 @@ function launchConfetti() {
       cdHours.textContent = '00';
       cdMinutes.textContent = '00';
       cdSeconds.textContent = '00';
+      if (reminderDays) reminderDays.textContent = '0';
+      if (reminderDaysSeal) reminderDaysSeal.textContent = '0';
       return;
     }
 
@@ -396,6 +456,7 @@ function launchConfetti() {
     cdHours.textContent = pad(hours);
     cdMinutes.textContent = pad(minutes);
     cdSeconds.textContent = pad(seconds);
+    updateReminderDays();
   }
 
   updateCountdown();
@@ -548,6 +609,18 @@ function launchConfetti() {
     // Carta
     if (/\b(carta|poema|mensaje|que dice la carta|texto|poesia)\b/.test(q)) {
       return 'Hay una carta hermosa dedicada a ti 💌 Habla sobre tu valor, tu fortaleza y lo extraordinaria que eres. Dice que <em>"no eres cualquier mujer: eres una obra maestra"</em>. Ve a la sección <strong>Carta</strong> para leerla completa. ✨';
+    }
+
+    // Vestimenta / dress code
+    if (/\b(vestimenta|dress code|dresscode|que me pongo|ropa|como voy vestida|elegante|sport elegante|que uso)\b/.test(q)) {
+      return 'El código de vestimenta es <strong>Elegante / Sport elegante</strong> 👗✨. Puedes venir como te sientas más cómoda, solo recuerda que será una noche especial. ¡Lucirás hermosa! 💕';
+    }
+
+    // Recordatorio / cuantos dias faltan
+    if (/\b(cuanto(s)? falta|faltan|dias faltan|recordatorio|fecha faltan)\b/.test(q)) {
+      var daysEl = document.getElementById('reminderDays');
+      var d = daysEl ? daysEl.textContent : 'pocos';
+      return '¡Solo faltan <strong>' + d + ' días</strong> para el gran día! 🎉 Sábado 01 de Agosto a las <strong>8:00 PM en punto</strong> ⏰ en <strong>IACYM San Felipe</strong>. ¡No te lo pierdas! 💖';
     }
 
     // Confirmar / RSVP

@@ -71,6 +71,7 @@
       <li><a href="#carta">Carta</a></li>
       <li><a href="#invitacion">Invitación</a></li>
       <li><a href="#countdown">Cuenta regresiva</a></li>
+      <li><a href="#recordatorio">Recordatorio</a></li>
       <li><a href="#ubicacion">Ubicación</a></li>
       <li><a href="#confirmar">Confirmar</a></li>
     </ul>
@@ -438,6 +439,91 @@
       </div>
 
       <p class="countdown-note reveal">Sábado 01 de Agosto de 2026 · 8:00 PM · Lima, Perú</p>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ==========================================================
+    RECORDATORIO — Tarjeta interactiva con sello
+    ========================================================== -->
+  <section id="recordatorio" class="reminder-section">
+    <div class="container">
+
+      <h2 class="section-title reveal">¡Solo faltan <span id="reminderDays">0</span> días!</h2>
+      <p class="section-sub reveal">Prepárate para una noche que recordarás siempre.</p>
+      <div class="section-divider reveal">✿ ✿ ✿</div>
+
+      <div class="reminder-wrap reveal">
+        <div class="reminder-card" id="reminderCard">
+
+          <!-- Partículas al abrir -->
+          <div class="reminder-sparkles" id="reminderSparkles"></div>
+
+          <!-- ESTADO CERRADO: Sello -->
+          <div class="reminder-seal" id="reminderSeal">
+            <span class="reminder-seal-icon">⏰</span>
+            <div class="reminder-seal-title">¡Solo faltan <span id="reminderDaysSeal">0</span> días!</div>
+            <div class="reminder-seal-hint">✨ Toca aquí para ver los detalles ✨</div>
+          </div>
+
+          <!-- ESTADO ABIERTO: Contenido -->
+          <div class="reminder-content" id="reminderContent">
+
+            <!-- Frase destacada arriba -->
+            <div class="reminder-quote">
+              <span class="quote-mark quote-mark-open">"</span>
+              <div class="quote-body">
+                <p>Porque las mejores amistades no son las que simplemente caminan contigo. Son aquellas que, mientras caminan contigo, también te conducen a los pies de Cristo.</p>
+              </div>
+              <span class="quote-mark quote-mark-close">"</span>
+              <div class="quote-author">— Jean | "el camino del hijo"</div>
+            </div>
+
+            <!-- Grid: info a la izquierda, vestimenta a la derecha -->
+            <div class="reminder-grid">
+              <div class="reminder-left">
+                <div class="reminder-detail">
+                  <span class="reminder-icon-wrap"><span>📅</span></span>
+                  <div class="reminder-detail-text">
+                    <span class="reminder-detail-label">Fecha</span>
+                    <span class="reminder-detail-value">Sábado 01 de Agosto 2026</span>
+                  </div>
+                </div>
+                <div class="reminder-detail">
+                  <span class="reminder-icon-wrap"><span>⏰</span></span>
+                  <div class="reminder-detail-text">
+                    <span class="reminder-detail-label">Hora</span>
+                    <span class="reminder-detail-value">8:00 PM en punto ⏱️</span>
+                  </div>
+                </div>
+                <div class="reminder-detail">
+                  <span class="reminder-icon-wrap"><span>📍</span></span>
+                  <div class="reminder-detail-text">
+                    <span class="reminder-detail-label">Lugar</span>
+                    <span class="reminder-detail-value">IACYM San Felipe</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="reminder-right">
+                <div class="dresscode-card">
+                  <div class="dresscode-header">
+                    <span class="dresscode-icon">👗</span>
+                    <h3>Vestimenta</h3>
+                  </div>
+                  <p class="dresscode-label">Elegante / Sport elegante</p>
+                  <p class="dresscode-note">Como te sientas más cómoda, solo recuerda que será una noche especial ✨</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="reminder-toggle-hint">Toca otra vez para cerrar ✿</div>
+
+          </div><!-- /reminder-content -->
+
+        </div><!-- /reminder-card -->
+      </div><!-- /reminder-wrap -->
 
     </div><!-- /container -->
   </section>
